@@ -600,6 +600,12 @@
       .support-layout { grid-template-columns: 1fr; gap: 32px; }
       .footer-top { flex-direction: column; }
       .footer-bottom { flex-direction: column; }
+      /* Analogy grid collapses to 1-col on mobile */
+      #how-it-works .features-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 1024px) and (min-width: 769px) {
+      /* Analogy grid 2-col on tablet */
+      #how-it-works .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
     @media (max-width: 480px) {
       .hero { padding: 60px 16px 48px; }
@@ -620,7 +626,7 @@
   <nav>
     <div class="nav-inner">
       <a href="#" class="nav-brand">
-        <img src="../public/prvc-logo.jpg" alt="prvc.app">
+        <img src="public/prvc-logo.jpg" alt="prvc.app">
         <span>prvc.app</span>
       </a>
       <ul class="nav-links">
@@ -641,6 +647,7 @@
         Identity-Free Communication
       </div>
       <h1>Reclaiming Safety<br>in the Age of <em>Surveillance.</em></h1>
+      <p style="font-size:clamp(18px,3vw,24px);font-weight:800;color:var(--accent);letter-spacing:-0.3px;margin-bottom:20px;">Identity-free is key.</p>
       <p class="hero-sub">No phone numbers. No emails. No central accounts. Your privacy is not a setting — it's the architecture.</p>
       <div class="hero-ctas">
         <a href="#" class="badge-appstore">
@@ -648,6 +655,13 @@
           <div>
             <span class="badge-sub">Download on the</span>
             <span class="badge-main">App Store</span>
+          </div>
+        </a>
+        <a href="#" class="badge-appstore" style="background:#2D7B4F;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.17.96 0l11.34-6.55-2.43-2.43-9.87 8.98zM.36 1.56C.14 1.87 0 2.27 0 2.77v18.46c0 .5.14.9.36 1.21l.07.06 10.33-10.33v-.24L.43 1.5l-.07.06zM20.72 9.46l-2.9-1.67-2.7 2.71 2.7 2.7 2.92-1.69c.83-.48.83-1.57-.02-2.05zM3.18.24l11.34 6.55-2.43 2.43L3.18.24z"/></svg>
+          <div>
+            <span class="badge-sub">Get it on</span>
+            <span class="badge-main">Google Play</span>
           </div>
         </a>
         <a href="#features" class="btn-ghost">See How It Works ↓</a>
@@ -760,8 +774,49 @@
         </div>
         <div class="feat-card">
           <div class="feat-icon">⚛️</div>
-          <div class="feat-title">Quantum Resilience</div>
+          <div class="feat-title">Quantum Secure</div>
           <p class="feat-body">Our sharding model bypasses the "harvest now, decrypt later" threat. Even with unlimited computing power, an attacker cannot reassemble all the pieces in the correct order — and even if they could, they would still need the recipient's private key, which never leaves their device. Without the complete set of shards in the right sequence, there is nothing to solve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALOGIES -->
+  <section class="section" id="how-it-works" style="background:var(--surface)">
+    <div class="section-inner">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">Privacy by Architecture —<br>Explained by Analogy.</h2>
+      <p class="section-body" style="margin-bottom:48px;">Complex security, made intuitive. Six familiar concepts that map exactly to how prvc.app protects you.</p>
+      <div class="features-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="feat-card">
+          <div class="feat-icon">📞</div>
+          <div class="feat-title">The Telephone Booth</div>
+          <p class="feat-body">You step in, make your call, and walk away. No log of who you are, who you called, or what you said. prvc.app is the digital equivalent: connect, communicate, leave no trace.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📬</div>
+          <div class="feat-title">The One-Way Mailbox</div>
+          <p class="feat-body">Someone drops a message in for you, but only you hold the key to open it. No one else — including us — can retrieve what is inside.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📒</div>
+          <div class="feat-title">The Handwritten Address Book</div>
+          <p class="feat-body">Your contact list lives only on your device. No cloud copy, no backup server, no searchable directory. Only people you've personally invited can reach you.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔷</div>
+          <div class="feat-title">The Shards</div>
+          <p class="feat-body">Your message is never sent whole. It is shattered into random pieces, each encrypted differently. An attacker needs every shard — from multiple jurisdictions — to reconstruct anything at all.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🌾</div>
+          <div class="feat-title">The Haystacks</div>
+          <p class="feat-body">Each shard is hidden inside vast haystacks of decoy data across servers worldwide. Finding one piece reveals nothing. The needle doesn't exist until all haystacks are searched simultaneously.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">⚛️</div>
+          <div class="feat-title">Quantum Secure</div>
+          <p class="feat-body">Even unlimited computing power cannot reassemble shards in the correct order. And even if it could, it would still need the recipient's private key — which never leaves their device. There is nothing to solve.</p>
         </div>
       </div>
     </div>
@@ -872,10 +927,6 @@
             <div class="sup-card-label">Data Deletion</div>
             <p>To delete your data, delete the app. All local data is wiped immediately. There is no central account to close.</p>
           </div>
-          <div class="sup-card">
-            <div class="sup-card-label">Reporting Abuse</div>
-            <p>Use "Export Abuse Log" in settings to generate a cryptographically signed metadata summary. Email it voluntarily to support@prvc.app. We never access your private message content.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -890,8 +941,8 @@
           <p>Privacy is the Architecture.</p>
         </div>
         <div class="footer-links">
-          <a href="#">Twitter/X — URL needed</a>
-          <a href="https://www.linkedin.com/company/combinatorial-security-holdings-inc/" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/combinatorial-security-holdings-inc" target="_blank">LinkedIn</a>
+          <a href="https://www.youtube.com/@prvcapp" target="_blank">YouTube</a>
           <a href="#privacy">Privacy Policy</a>
           <a href="#terms">Terms</a>
         </div>
