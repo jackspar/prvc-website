@@ -10,7 +10,7 @@
 
 A single-page marketing and compliance website for **prvc.app** — an identity-free, P2P encrypted messaging app for iOS. The site must be live at `prvc.app` before the app can be submitted to the Apple App Store.
 
-**This is not a marketing exercise.** The website is an Apple App Store compliance instrument. Every section exists to satisfy a specific Apple Review Guideline. Do not remove or rename sections without checking the compliance checklist first.
+The website is an Apple App Store compliance instrument. Every section exists to satisfy a specific Apple Review Guideline. Do not remove or rename sections without checking the compliance checklist first.
 
 ---
 
