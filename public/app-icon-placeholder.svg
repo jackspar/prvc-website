@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Background: near-black navy -->
+  <rect width="1024" height="1024" fill="#0A0E1A"/>
+
+  <!-- 5 rounded bars — centered, wave pattern, tallest in middle -->
+  <!-- Bar width: 108px, gap: 52px, total: 5×108 + 4×52 = 748px, x-start: (1024-748)/2 = 138 -->
+  <!-- Bottom baseline: y=730, bar heights: 280, 410, 540, 410, 280 -->
+
+  <!-- Bar 1 (leftmost) h=280 -->
+  <rect x="138" y="450" width="108" height="280" rx="54" ry="54" fill="#FFFFFF"/>
+
+  <!-- Bar 2 h=410 -->
+  <rect x="298" y="320" width="108" height="410" rx="54" ry="54" fill="#FFFFFF"/>
+
+  <!-- Bar 3 (center, tallest) h=540 -->
+  <rect x="458" y="190" width="108" height="540" rx="54" ry="54" fill="#FFFFFF"/>
+
+  <!-- Bar 4 h=410 -->
+  <rect x="618" y="320" width="108" height="410" rx="54" ry="54" fill="#FFFFFF"/>
+
+  <!-- Bar 5 (rightmost) h=280 -->
+  <rect x="778" y="450" width="108" height="280" rx="54" ry="54" fill="#FFFFFF"/>
+
+  <!-- "prvc" wordmark below bars -->
+  <text
+    x="512"
+    y="830"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="112"
+    font-weight="300"
+    letter-spacing="8"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    dominant-baseline="auto"
+  >prvc</text>
+</svg>
