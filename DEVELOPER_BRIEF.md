@@ -83,7 +83,6 @@ These assets are not yet available — use placeholders until received:
 
 - [ ] Final App Store icon (1024×1024 PNG, no alpha, no rounded corners)
 - [ ] App Store badge URL (once app is live)
-- [ ] Twitter/X handle for footer
 - [ ] High-fidelity app screenshots
 
 ---

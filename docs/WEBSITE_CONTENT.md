@@ -80,4 +80,4 @@ Contact us at `support@prvc.app`.
 - **Copyright:** © 2026 Combinatorial Security Holdings Inc. All Rights Reserved.
 - **Governing Law:** Delaware, USA.
 - **Brand:** prvc.app — Privacy is the Architecture.
-- **Links:** [Twitter/X — URL NEEDED] [LinkedIn](https://www.linkedin.com/company/combinatorial-security-holdings-inc/) [Privacy Policy → #privacy] [Terms → #terms]
+- **Links:** [LinkedIn](https://www.linkedin.com/company/combinatorial-security-holdings-inc/) [Privacy Policy → #privacy] [Terms → #terms]
