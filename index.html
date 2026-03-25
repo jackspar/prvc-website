@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>prvc.app — Privacy is the Architecture</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080C18;
+      --surface:  #0F1625;
+      --card:     #151E30;
+      --border:   #1E2D47;
+      --text:     #EFF2F7;
+      --muted:    #8896B0;
+      --dim:      #4A5568;
+      --accent:   #00D4FF;
+      --accent2:  #0099CC;
+      --green:    #10B981;
+      --red:      #EF4444;
+      --max:      1080px;
+      --radius:   14px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 68px;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── PREVIEW BANNER ── */
+    .banner {
+      background: #1A1000;
+      border-bottom: 1px solid #F59E0B;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #FCD34D;
+      letter-spacing: 0.3px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 34px;
+      z-index: 900;
+      background: rgba(8, 12, 24, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-brand img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+      filter: invert(1) brightness(0.9);
+    }
+    .nav-brand span {
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg) !important;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 20px 60px;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,212,255,0.12) 0%, transparent 70%),
+                  var(--bg);
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.25);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 7vw, 54px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: clamp(15px, 2.5vw, 18px);
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    /* Apple App Store badge style */
+    .badge-appstore {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .badge-appstore:hover { opacity: 0.9; }
+    .badge-appstore .badge-sub { font-size: 10px; font-weight: 400; display: block; opacity: 0.6; line-height: 1; }
+    .badge-appstore .badge-main { font-size: 16px; font-weight: 800; display: block; line-height: 1.2; }
+    .badge-appstore svg { flex-shrink: 0; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); }
+
+    /* Phone mockup */
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .phone {
+      width: 240px;
+      background: #1A1F2E;
+      border-radius: 42px;
+      border: 2px solid #2A3348;
+      padding: 14px 10px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset;
+      position: relative;
+    }
+    .phone-notch {
+      width: 80px;
+      height: 22px;
+      background: #0A0E1A;
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto 8px;
+    }
+    .phone-screen {
+      background: var(--card);
+      border-radius: 24px;
+      aspect-ratio: 9 / 18;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-screen-placeholder {
+      text-align: center;
+      padding: 20px;
+    }
+    .phone-screen-placeholder .psp-label {
+      font-size: 10px;
+      color: var(--dim);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .phone-screen-placeholder .psp-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: block;
+      opacity: 0.3;
+    }
+    .phone-home {
+      width: 100px;
+      height: 4px;
+      background: var(--dim);
+      border-radius: 2px;
+      margin: 10px auto 0;
+    }
+
+    /* Trust strip */
+    .trust-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px;
+    }
+    .trust-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .trust-item strong { color: var(--text); font-weight: 600; }
+    .trust-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── SHARED SECTION ── */
+    .section {
+      padding: 80px 20px;
+    }
+    .section-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .section-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    /* ── WHY SECTION ── */
+    .why-section { background: var(--surface); }
+    .why-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 48px;
+    }
+    .stat-card {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .stat-card .stat-label { font-size: 12px; color: #F87171; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .stat-card .stat-val { font-size: 28px; font-weight: 800; color: var(--text); }
+    .stat-card .stat-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .compare-table th {
+      background: var(--card);
+      color: var(--muted);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .compare-table th:last-child { color: var(--accent); }
+    .compare-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface);
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .td-bad { color: #F87171; }
+    .compare-table .td-good { color: var(--green); font-weight: 600; }
+    .compare-table td:first-child { color: var(--text); font-weight: 500; }
+
+    /* ── FEATURES ── */
+    .features-section { background: var(--bg); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .feat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .feat-card:hover { border-color: rgba(0,212,255,0.3); }
+    .feat-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0,212,255,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+    .feat-badge {
+      display: inline-block;
+      background: rgba(0,212,255,0.12);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .feat-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .feat-body {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--surface); }
+    .faq-list { margin-top: 40px; }
+    details {
+      border-bottom: 1px solid var(--border);
+    }
+    summary {
+      padding: 18px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 20px;
+      color: var(--accent);
+      font-weight: 300;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after {
+      content: '−';
+    }
+    .faq-answer {
+      padding: 0 0 18px 0;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── PRIVACY ── */
+    .privacy-section { background: var(--bg); }
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .privacy-card {
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .privacy-card .check {
+      width: 28px;
+      height: 28px;
+      background: rgba(16,185,129,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .privacy-card strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 14px; }
+    .privacy-card p { font-size: 13px; color: var(--muted); line-height: 1.55; margin: 0; }
+
+    /* ── TERMS ── */
+    .terms-section { background: var(--surface); }
+    .terms-list { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+    .terms-item {
+      display: flex;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      align-items: flex-start;
+    }
+    .terms-num { font-size: 20px; font-weight: 800; color: var(--border); flex-shrink: 0; min-width: 28px; }
+    .terms-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .terms-text strong { color: var(--text); }
+
+    /* ── SUPPORT ── */
+    .support-section {
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,212,255,0.08) 0%, transparent 70%),
+                  var(--bg);
+    }
+    .support-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-top: 48px;
+    }
+    .email-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .email-block:hover { border-color: var(--accent); }
+    .email-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0,212,255,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .email-block strong { display: block; color: var(--text); font-size: 16px; }
+    .email-block span { font-size: 12px; color: var(--muted); }
+    .support-cards { display: flex; flex-direction: column; gap: 14px; }
+    .sup-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .sup-card-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .sup-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050810;
+      border-top: 1px solid var(--border);
+      padding: 40px 20px;
+    }
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .footer-brand span {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .footer-brand p { font-size: 13px; color: var(--dim); max-width: 240px; line-height: 1.5; }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links a { color: var(--dim); text-decoration: none; font-size: 14px; }
+    .footer-links a:hover { color: var(--muted); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 12px; color: var(--dim); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; } /* Mobile: hide nav links, keep brand */
+      .features-grid { grid-template-columns: 1fr; }
+      .privacy-grid { grid-template-columns: 1fr; }
+      .why-layout { grid-template-columns: 1fr; gap: 32px; }
+      .support-layout { grid-template-columns: 1fr; gap: 32px; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; }
+      /* Analogy grid collapses to 1-col on mobile */
+      #how-it-works .features-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 1024px) and (min-width: 769px) {
+      /* Analogy grid 2-col on tablet */
+      #how-it-works .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 60px 16px 48px; }
+      .section { padding: 60px 16px; }
+      .phone { width: 200px; }
+      .trust-inner { flex-direction: column; align-items: center; gap: 16px; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); } /* already 2-col, no change needed */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">⚠️ CONTENT REVIEW PREVIEW — For screenshot and review purposes only. Not the production build.</div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="public/prvc-logo.jpg" alt="prvc.app">
+        <span>prvc.app</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#why-prvc">Why prvc.app?</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#support" class="nav-cta">Support</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" fill="#00D4FF" opacity="0.4"/><circle cx="5" cy="5" r="2" fill="#00D4FF"/></svg>
+        Identity-Free Communication
+      </div>
+      <h1>Reclaiming Safety<br>in the Age of <em>Surveillance.</em></h1>
+      <p style="font-size:clamp(18px,3vw,24px);font-weight:800;color:var(--accent);letter-spacing:-0.3px;margin-bottom:20px;">Identity-free is key.</p>
+      <p class="hero-sub">No phone numbers. No emails. No central accounts. Your privacy is not a setting — it's the architecture.</p>
+      <div class="hero-ctas">
+        <a href="#" class="badge-appstore">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </div>
+        </a>
+        <a href="#" class="badge-appstore" style="background:#2D7B4F;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.17.96 0l11.34-6.55-2.43-2.43-9.87 8.98zM.36 1.56C.14 1.87 0 2.27 0 2.77v18.46c0 .5.14.9.36 1.21l.07.06 10.33-10.33v-.24L.43 1.5l-.07.06zM20.72 9.46l-2.9-1.67-2.7 2.71 2.7 2.7 2.92-1.69c.83-.48.83-1.57-.02-2.05zM3.18.24l11.34 6.55-2.43 2.43L3.18.24z"/></svg>
+          <div>
+            <span class="badge-sub">Get it on</span>
+            <span class="badge-main">Google Play</span>
+          </div>
+        </a>
+        <a href="#features" class="btn-ghost">See How It Works ↓</a>
+      </div>
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-screen-placeholder">
+              <span class="psp-icon">📱</span>
+              <div class="psp-label">Screenshot<br>Pending</div>
+            </div>
+          </div>
+          <div class="phone-home"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>13 Years</strong> of Research</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>US Patented</strong> — US11516192B2</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>Zero Data</strong> Collected</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>No AI</strong> — Ever</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>P2P</strong> — No Central Server</span></div>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <section class="section why-section" id="why-prvc">
+    <div class="section-inner">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">Even "Secure" Apps<br>Know Who You Are.</h2>
+      <div class="why-layout">
+        <div>
+          <p class="section-body" style="margin-bottom: 24px;">Every messaging app you've been told to trust still requires a phone number. That number is a permanent link between your digital communications and your real-world identity. Even if your messages are encrypted, your identity is not.</p>
+          <div class="stat-card">
+            <div class="stat-label">Irish Data Protection Commission — September 2021</div>
+            <div class="stat-val">€225 Million</div>
+            <div class="stat-desc">WhatsApp fined for failing to disclose how it shares your identity data with its parent advertising company. Your suspicion was justified.</div>
+          </div>
+          <p class="section-body"><strong style="color:var(--text)">The prvc.app difference:</strong> We remove the "who" from the "what." If we don't know who you are, there is nothing for us to share, sell, or lose.</p>
+        </div>
+        <div>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Your Current App</th>
+                <th>prvc.app</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Identifier</td>
+                <td class="td-bad">Mandatory Phone Number</td>
+                <td class="td-good">None</td>
+              </tr>
+              <tr>
+                <td>Social Graph</td>
+                <td class="td-bad">Uploads your contacts</td>
+                <td class="td-good">No Contact Access</td>
+              </tr>
+              <tr>
+                <td>Metadata</td>
+                <td class="td-bad">Harvested &amp; Linked</td>
+                <td class="td-good">Zero Metadata</td>
+              </tr>
+              <tr>
+                <td>Account Recovery</td>
+                <td class="td-bad">Possible (Risk)</td>
+                <td class="td-good">Impossible (Safe)</td>
+              </tr>
+              <tr>
+                <td>Data Sharing</td>
+                <td class="td-bad">Third-Party Ecosystem</td>
+                <td class="td-good">Zero Sharing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section features-section" id="features">
+    <div class="section-inner">
+      <p class="section-label">The Architecture</p>
+      <h2 class="section-title">Built for High-Risk<br>Threat Models.</h2>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">🪪</div>
+          <div class="feat-badge">Guideline 5.1.1v</div>
+          <div class="feat-title">Identity-Free Architecture</div>
+          <p class="feat-body">No registration. No account. Your identity is a random string tied only to your physical device. Delete the app — the identity vanishes forever.<br><br>Think of it like a handwritten address book kept only on your device. Only the people you explicitly add can reach you. If you lose your phone, there is no recovery — nothing is stored on any server.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔷</div>
+          <div class="feat-badge">US Patent 11,516,192</div>
+          <div class="feat-title">Combinatorial Security</div>
+          <p class="feat-body">Like a one-way mailbox: someone drops a message in for you, but only you hold the key to open it. Your message is then shattered into random shards, each encrypted differently, and hidden across haystacks of data distributed across servers around the world. Shards exist only in transit — once retrieved, they disappear. Time is working against any attacker: the window to act closes the moment the message is delivered.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔑</div>
+          <div class="feat-title">Panic PIN</div>
+          <p class="feat-body">A silent duress code. Entering your Panic PIN triggers a hardware-secured wipe of all local keys and data. It looks like a normal login failure — but everything is gone.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">⚛️</div>
+          <div class="feat-title">Quantum Secure</div>
+          <p class="feat-body">Our sharding model bypasses the "harvest now, decrypt later" threat. Even with unlimited computing power, an attacker cannot reassemble all the pieces in the correct order — and even if they could, they would still need the recipient's private key, which never leaves their device. Without the complete set of shards in the right sequence, there is nothing to solve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALOGIES -->
+  <section class="section" id="how-it-works" style="background:var(--surface)">
+    <div class="section-inner">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">Privacy by Architecture —<br>Explained by Analogy.</h2>
+      <p class="section-body" style="margin-bottom:48px;">Complex security, made intuitive. Six familiar concepts that map exactly to how prvc.app protects you.</p>
+      <div class="features-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="feat-card">
+          <div class="feat-icon">📞</div>
+          <div class="feat-title">Telephone Booth</div>
+          <p class="feat-body">You step in, make your call, and walk away. No log of who you are, who you called, or what you said. prvc.app is the digital equivalent: connect, communicate, leave no trace.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📬</div>
+          <div class="feat-title">One-Way Mailbox</div>
+          <p class="feat-body">Someone drops a message in for you, but only you hold the key to open it. No one else — including us — can retrieve what is inside.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📒</div>
+          <div class="feat-title">Handwritten Address Book</div>
+          <p class="feat-body">Your contact list lives only on your device. No cloud copy, no backup server, no searchable directory. Only people you've personally invited can reach you.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔷</div>
+          <div class="feat-title">Shards</div>
+          <p class="feat-body">Your message is never sent whole. It is shattered into random pieces, each encrypted differently. An attacker needs every shard — from multiple jurisdictions — to reconstruct anything at all.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🌾</div>
+          <div class="feat-title">Haystacks</div>
+          <p class="feat-body">Each shard is hidden inside vast haystacks of decoy data across servers worldwide. Finding one piece reveals nothing. The needle doesn't exist until all haystacks are searched simultaneously.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">⚛️</div>
+          <div class="feat-title">Quantum Secure</div>
+          <p class="feat-body">Even unlimited computing power cannot reassemble shards in the correct order. And even if it could, it would still need the recipient's private key — which never leaves their device. There is nothing to solve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section" id="faq">
+    <div class="section-inner">
+      <p class="section-label">FAQ</p>
+      <h2 class="section-title">Common Questions.</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Why no phone number?</summary>
+          <p class="faq-answer">Phone numbers are the "universal tracking ID" of the modern world. By removing them, we break the link between your physical identity and your digital communications.</p>
+        </details>
+        <details>
+          <summary>My current app is encrypted. Isn't that enough?</summary>
+          <p class="faq-answer">Encryption protects your message content — not your identity. Every app that requires a phone number knows who you are, who you talk to, when, and for how long. That metadata is the product. In 2021, WhatsApp was fined €225M by the Irish Data Protection Commission specifically for failing to disclose how it shares this identity data. prvc.app is identity-free — there is no identity to harvest.</p>
+        </details>
+        <details>
+          <summary>How do I connect with others?</summary>
+          <p class="faq-answer">Connections are made via unique 64-character one-time invitation codes. You share these codes through a secure secondary channel or in person. There is no searchable directory — no one can find you unless you want them to.</p>
+        </details>
+        <details>
+          <summary>What happens if I lose my phone?</summary>
+          <p class="faq-answer">Because we are identity-free, we have no "Account Recovery." If you lose your phone, your messages and identity are gone. This is a deliberate safety feature: if you can't recover it, neither can an adversary.</p>
+        </details>
+        <details>
+          <summary>Is it P2P?</summary>
+          <p class="faq-answer">Yes. Messages are sent via peer-to-peer connections and evaporate within 24 hours (or less) from all nodes. No central server ever holds a complete file.</p>
+        </details>
+        <details>
+          <summary>Why no biometrics (FaceID / TouchID)?</summary>
+          <p class="faq-answer">A PIN exists only in your mind. Under the Fifth Amendment, you cannot be legally compelled to reveal something you know — a memorized PIN requires a subpoena and formal legal process to contest. Biometrics are different: a court order can require you to unlock a device with your face or fingerprint, because providing it is a physical act, not testimony. prvc.app uses a PIN specifically because your legal protection is stronger. We prioritize your legal and physical safety over convenience.</p>
+        </details>
+        <details open>
+          <summary>Can I block someone?</summary>
+          <p class="faq-answer">Yes. You have total control over your connections and can permanently block any peer locally at any time. This severs the P2P link and wipes their shards from your device.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="section privacy-section" id="privacy">
+    <div class="section-inner">
+      <p class="section-label">Privacy Policy · Last Updated March 18, 2026</p>
+      <h2 class="section-title">Our Zero-Data Mandate.</h2>
+      <p class="section-body" style="margin-bottom: 0">prvc.app is designed so that collection is technically impossible.</p>
+      <div class="privacy-grid" style="margin-top: 32px">
+        <div class="privacy-card">
+          <div class="check">✓</div>
+          <div><strong>No Personal Info</strong><p>No phone numbers, no emails, no names, no contacts.</p></div>
+        </div>
+        <div class="privacy-card">
+          <div class="check">✓</div>
+          <div><strong>No Identifiers</strong><p>No IDFA, no IP logging, no device fingerprints.</p></div>
+        </div>
+        <div class="privacy-card">
+          <div class="check">✓</div>
+          <div><strong>No AI — Zero</strong><p>No third-party models (OpenAI, Gemini, etc.) touch your data. We don't analyze your messages.</p></div>
+        </div>
+        <div class="privacy-card">
+          <div class="check">✓</div>
+          <div><strong>Identity-Free by Design</strong><p>No logins or profiles. Your presence is a random, ephemeral string of characters.</p></div>
+        </div>
+        <div class="privacy-card" style="grid-column: 1 / -1">
+          <div class="check">✓</div>
+          <div><strong>Data Deletion</strong><p>To delete all your data, delete the app. Because prvc.app is identity-free, there is no central account to close and nothing on our end to remove.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS -->
+  <section class="section terms-section" id="terms">
+    <div class="section-inner">
+      <p class="section-label">Terms of Service · Last Updated March 18, 2026</p>
+      <h2 class="section-title">Simple Terms.</h2>
+      <div class="terms-list">
+        <div class="terms-item"><span class="terms-num">1</span><span class="terms-text"><strong>No Warranty.</strong> The service is provided "as is." While we use advanced security, no system is 100% infallible.</span></div>
+        <div class="terms-item"><span class="terms-num">2</span><span class="terms-text"><strong>User Responsibility.</strong> You are solely responsible for your PIN and invitation codes. We cannot recover them.</span></div>
+        <div class="terms-item"><span class="terms-num">3</span><span class="terms-text"><strong>Legal Use.</strong> You agree not to use prvc.app for illegal activities.</span></div>
+        <div class="terms-item"><span class="terms-num">4</span><span class="terms-text"><strong>Governing Law.</strong> These terms are governed by the laws of the State of Delaware, USA.</span></div>
+        <div class="terms-item"><span class="terms-num">5</span><span class="terms-text"><strong>Export Restrictions.</strong> By using this app, you represent that you are not in a country or on a list prohibited by U.S. export laws regarding encryption technology.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section class="section support-section" id="support">
+    <div class="section-inner">
+      <p class="section-label">Support</p>
+      <h2 class="section-title">We're Here.</h2>
+      <div class="support-layout">
+        <div>
+          <a href="mailto:support@prvc.app" class="email-block">
+            <div class="email-icon">✉️</div>
+            <div>
+              <strong>support@prvc.app</strong>
+              <span>48-hour response · Monitored in real time during App Review</span>
+            </div>
+          </a>
+          <p style="font-size:14px;color:var(--muted);line-height:1.6">During Apple App Store review, our inbox is monitored in real time. If you are an Apple reviewer, we will respond immediately.</p>
+        </div>
+        <div class="support-cards">
+          <div class="sup-card">
+            <div class="sup-card-label">Data Deletion</div>
+            <p>To delete your data, delete the app. All local data is wiped immediately. There is no central account to close.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span>prvc.app</span>
+          <p>Privacy is the Architecture.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/company/combinatorial-security-holdings-inc" target="_blank">LinkedIn</a>
+          <a href="https://www.youtube.com/@prvcapp" target="_blank">YouTube</a>
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#terms">Terms</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Combinatorial Security Holdings Inc. All Rights Reserved.</span>
+        <span class="footer-copy">Governing Law: Delaware, USA.</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
