@@ -686,9 +686,9 @@
     <div class="trust-inner">
       <div class="trust-item"><div class="trust-dot"></div><span><strong>13 Years</strong> of Research</span></div>
       <div class="trust-item"><div class="trust-dot"></div><span><strong>US Patented</strong> — US11516192B2</span></div>
-      <div class="trust-item"><div class="trust-dot"></div><span><strong>No Identity Data</strong> Retained</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>Zero Data</strong> Collected</span></div>
       <div class="trust-item"><div class="trust-dot"></div><span><strong>No AI</strong> — Ever</span></div>
-      <div class="trust-item"><div class="trust-dot"></div><span><strong>P2P</strong> — No Central Message Store</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><strong>P2P</strong> — No Central Server</span></div>
     </div>
   </div>
 
@@ -699,11 +699,11 @@
       <h2 class="section-title">Even "Secure" Apps<br>Know Who You Are.</h2>
       <div class="why-layout">
         <div>
-          <p class="section-body" style="margin-bottom: 24px;">Many mainstream messaging apps still require a phone number. That number is a permanent link between your digital communications and your real-world identity. Even if your messages are encrypted, your identity is not.</p>
+          <p class="section-body" style="margin-bottom: 24px;">Every messaging app you've been told to trust still requires a phone number. That number is a permanent link between your digital communications and your real-world identity. Even if your messages are encrypted, your identity is not.</p>
           <div class="stat-card">
             <div class="stat-label">Irish Data Protection Commission — September 2021</div>
             <div class="stat-val">€225 Million</div>
-            <div class="stat-desc">WhatsApp was fined €225M over GDPR transparency failures concerning how it explained data processing to users and non-users. Your suspicion was justified.</div>
+            <div class="stat-desc">WhatsApp fined for failing to disclose how it shares your identity data with its parent advertising company. Your suspicion was justified.</div>
           </div>
           <p class="section-body"><strong style="color:var(--text)">The prvc.app difference:</strong> We remove the "who" from the "what." If we don't know who you are, there is nothing for us to share, sell, or lose.</p>
         </div>
@@ -730,17 +730,17 @@
               <tr>
                 <td>Metadata</td>
                 <td class="td-bad">Harvested &amp; Linked</td>
-                <td class="td-good">No Retained Metadata</td>
+                <td class="td-good">Zero Metadata</td>
               </tr>
               <tr>
                 <td>Account Recovery</td>
                 <td class="td-bad">Possible (Risk)</td>
-                <td class="td-good">Not Available (Safe)</td>
+                <td class="td-good">Impossible (Safe)</td>
               </tr>
               <tr>
                 <td>Data Sharing</td>
                 <td class="td-bad">Third-Party Ecosystem</td>
-                <td class="td-good">No Identity Data Shared</td>
+                <td class="td-good">Zero Sharing</td>
               </tr>
             </tbody>
           </table>
@@ -759,7 +759,7 @@
           <div class="feat-icon">🪪</div>
           <div class="feat-badge">Guideline 5.1.1v</div>
           <div class="feat-title">Identity-Free Architecture</div>
-          <p class="feat-body">No registration. No account. Your identity is a random string tied only to your physical device. Delete the app — the identity vanishes forever.<br><br>Think of it like a handwritten address book kept only on your device. Only the people you explicitly add can reach you. If you lose your phone, there is no recovery — no identity data resides on our servers.</p>
+          <p class="feat-body">No registration. No account. Your identity is a random string tied only to your physical device. Delete the app — the identity vanishes forever.<br><br>Think of it like a handwritten address book kept only on your device. Only the people you explicitly add can reach you. If you lose your phone, there is no recovery — nothing is stored on any server.</p>
         </div>
         <div class="feat-card">
           <div class="feat-icon">🔷</div>
@@ -770,12 +770,12 @@
         <div class="feat-card">
           <div class="feat-icon">🔑</div>
           <div class="feat-title">Panic PIN</div>
-          <p class="feat-body">A silent duress code. Entering your Panic PIN triggers local deletion of all keys and app data, using platform security features where available. It looks like a normal login failure — but everything is gone.</p>
+          <p class="feat-body">A silent duress code. Entering your Panic PIN triggers a hardware-secured wipe of all local keys and data. It looks like a normal login failure — but everything is gone.</p>
         </div>
         <div class="feat-card">
           <div class="feat-icon">⚛️</div>
-          <div class="feat-title">Designed to Mitigate Harvest-Now-Decrypt-Later</div>
-          <p class="feat-body">Our sharding model is designed to reduce harvest-now-decrypt-later risk by requiring multiple independent conditions to be met simultaneously: shard collection from multiple sources, correct ordering, decryption keys, and delivery timing. An attacker who intercepts shards in transit still needs the recipient's private key, which never leaves their device.</p>
+          <div class="feat-title">Quantum Secure</div>
+          <p class="feat-body">Our sharding model bypasses the "harvest now, decrypt later" threat. Even with unlimited computing power, an attacker cannot reassemble all the pieces in the correct order — and even if they could, they would still need the recipient's private key, which never leaves their device. Without the complete set of shards in the right sequence, there is nothing to solve.</p>
         </div>
       </div>
     </div>
@@ -791,7 +791,7 @@
         <div class="feat-card">
           <div class="feat-icon">📞</div>
           <div class="feat-title">Telephone Booth</div>
-          <p class="feat-body">You step in, make your call, and walk away. No log of who you are, who you called, or what you said. prvc.app is the digital equivalent: connect, communicate, and walk away without leaving an identity record behind.</p>
+          <p class="feat-body">You step in, make your call, and walk away. No log of who you are, who you called, or what you said. prvc.app is the digital equivalent: connect, communicate, leave no trace.</p>
         </div>
         <div class="feat-card">
           <div class="feat-icon">📬</div>
@@ -806,7 +806,7 @@
         <div class="feat-card">
           <div class="feat-icon">🔷</div>
           <div class="feat-title">Shards</div>
-          <p class="feat-body">Your message is split before transit. It is shattered into random pieces, each encrypted differently. An attacker needs shards from multiple jurisdictions to reconstruct the message.</p>
+          <p class="feat-body">Your message is never sent whole. It is shattered into random pieces, each encrypted differently. An attacker needs every shard — from multiple jurisdictions — to reconstruct anything at all.</p>
         </div>
         <div class="feat-card">
           <div class="feat-icon">🌾</div>
@@ -815,8 +815,8 @@
         </div>
         <div class="feat-card">
           <div class="feat-icon">⚛️</div>
-          <div class="feat-title">Layered Interception Resistance</div>
-          <p class="feat-body">Intercepting shards in transit is not enough. An attacker still needs to collect shards from multiple independent sources, reconstruct the correct ordering, and obtain the recipient's private key — which is held on the recipient's device. Each layer is an independent barrier.</p>
+          <div class="feat-title">Quantum Secure</div>
+          <p class="feat-body">Even unlimited computing power cannot reassemble shards in the correct order. And even if it could, it would still need the recipient's private key — which never leaves their device. There is nothing to solve.</p>
         </div>
       </div>
     </div>
@@ -834,7 +834,7 @@
         </details>
         <details>
           <summary>My current app is encrypted. Isn't that enough?</summary>
-          <p class="faq-answer">Encryption protects your message content — not your identity. Phone-number-based apps can expose durable identity and relationship metadata: who you talk to, when, and for how long. That metadata is the product. In 2021, WhatsApp was fined €225M by the Irish Data Protection Commission over GDPR transparency failures concerning how it explained data processing to users and non-users. prvc.app is identity-free — there is no identity to harvest.</p>
+          <p class="faq-answer">Encryption protects your message content — not your identity. Every app that requires a phone number knows who you are, who you talk to, when, and for how long. That metadata is the product. In 2021, WhatsApp was fined €225M by the Irish Data Protection Commission specifically for failing to disclose how it shares this identity data. prvc.app is identity-free — there is no identity to harvest.</p>
         </details>
         <details>
           <summary>How do I connect with others?</summary>
@@ -846,11 +846,11 @@
         </details>
         <details>
           <summary>Is it P2P?</summary>
-          <p class="faq-answer">Yes. Messages are sent via peer-to-peer connections and evaporate within 24 hours (or less) from all nodes. No central message store holds a complete file.</p>
+          <p class="faq-answer">Yes. Messages are sent via peer-to-peer connections and evaporate within 24 hours (or less) from all nodes. No central server ever holds a complete file.</p>
         </details>
         <details>
           <summary>Why no biometrics (FaceID / TouchID)?</summary>
-          <p class="faq-answer">A PIN exists only in your mind. In many U.S. jurisdictions, memorized PINs may receive stronger legal protection than biometrics under the Fifth Amendment — a memorized PIN is considered testimony, while providing a fingerprint or face scan is generally treated as a physical act a court can compel. prvc.app uses a PIN specifically for this reason. Legal standards vary by jurisdiction; users in other countries should seek advice appropriate to their location. We prioritize your legal and physical safety over convenience.</p>
+          <p class="faq-answer">A PIN exists only in your mind. Under the Fifth Amendment, you cannot be legally compelled to reveal something you know — a memorized PIN requires a subpoena and formal legal process to contest. Biometrics are different: a court order can require you to unlock a device with your face or fingerprint, because providing it is a physical act, not testimony. prvc.app uses a PIN specifically because your legal protection is stronger. We prioritize your legal and physical safety over convenience.</p>
         </details>
         <details open>
           <summary>Can I block someone?</summary>
@@ -864,8 +864,8 @@
   <section class="section privacy-section" id="privacy">
     <div class="section-inner">
       <p class="section-label">Privacy Policy · Last Updated March 18, 2026</p>
-      <h2 class="section-title">Our Privacy-First Design.</h2>
-      <p class="section-body" style="margin-bottom: 0">The app is architected so we do not need to collect identity data to provide the service.</p>
+      <h2 class="section-title">Our Zero-Data Mandate.</h2>
+      <p class="section-body" style="margin-bottom: 0">prvc.app is designed so that collection is technically impossible.</p>
       <div class="privacy-grid" style="margin-top: 32px">
         <div class="privacy-card">
           <div class="check">✓</div>
@@ -873,11 +873,11 @@
         </div>
         <div class="privacy-card">
           <div class="check">✓</div>
-          <div><strong>No Identifiers</strong><p>No IDFA, no retained IP logs, no device fingerprints.</p></div>
+          <div><strong>No Identifiers</strong><p>No IDFA, no IP logging, no device fingerprints.</p></div>
         </div>
         <div class="privacy-card">
           <div class="check">✓</div>
-          <div><strong>No AI</strong><p>No third-party models (OpenAI, Gemini, etc.) touch your data. We don't analyze your messages.</p></div>
+          <div><strong>No AI — Zero</strong><p>No third-party models (OpenAI, Gemini, etc.) touch your data. We don't analyze your messages.</p></div>
         </div>
         <div class="privacy-card">
           <div class="check">✓</div>
