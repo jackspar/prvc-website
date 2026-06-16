@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>prvc.app — Privacy is the Architecture</title>
   <style>
+    /* ── PREVIEW BANNER ── */
+    .banner {
+      background: #1A1000;
+      border-bottom: 1px solid #F59E0B;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #FCD34D;
+      letter-spacing: 0.3px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -30,21 +45,6 @@
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── PREVIEW BANNER ── */
-    .banner {
-      background: #1A1000;
-      border-bottom: 1px solid #F59E0B;
-      text-align: center;
-      padding: 9px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #FCD34D;
-      letter-spacing: 0.3px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
     }
 
     /* ── NAV ── */
@@ -160,7 +160,7 @@
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 48px;
+      margin-bottom: 8px;
     }
     /* Apple App Store badge style */
     .badge-appstore {
@@ -220,7 +220,7 @@
     }
     .phone-screen {
       background: var(--card);
-      border-radius: 24px;
+      border-radius: 12px;
       aspect-ratio: 9 / 18;
       display: flex;
       align-items: center;
@@ -616,12 +616,90 @@
     @media (min-width: 769px) and (max-width: 1024px) {
       .features-grid { grid-template-columns: repeat(2, 1fr); } /* already 2-col, no change needed */
     }
+    /* ── TESTFLIGHT DIALOG ── */
+    dialog {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      padding: 32px;
+      max-width: 420px;
+      width: 90vw;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      margin: 0;
+    }
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+    dialog input[type="email"] {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 16px;
+    }
+    dialog input[type="email"]:focus {
+      border-color: var(--accent);
+    }
+    dialog input[type="email"]::placeholder {
+      color: var(--dim);
+    }
+    .dialog-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .dialog-buttons button {
+      flex: 1;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+    .dialog-buttons button[type="submit"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .dialog-buttons button[type="button"] {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .dialog-error {
+      color: var(--red);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .dialog-success {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .dialog-close-btn {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
-
   <div class="banner">NEW VERSION — 2026-06-15 · Text updated per AI feedback (no-absolutes pass) · For side-by-side review</div>
-
   <!-- NAV -->
   <nav>
     <div class="nav-inner">
@@ -650,20 +728,20 @@
       <p style="font-size:clamp(18px,3vw,24px);font-weight:800;color:var(--accent);letter-spacing:-0.3px;margin-bottom:20px;">Identity-free is key.</p>
       <p class="hero-sub">No phone numbers. No emails. No central accounts. Your privacy is not a setting — it's the architecture.</p>
       <div class="hero-ctas">
-        <a href="#" class="badge-appstore">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div>
-            <span class="badge-sub">Download on the</span>
-            <span class="badge-main">App Store</span>
-          </div>
-        </a>
-        <a href="#" class="badge-appstore" style="background:#2D7B4F;">
+        <a href="https://prvc.app/noint.php/apk/prvc" class="badge-appstore" style="background:#2D7B4F;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.17.96 0l11.34-6.55-2.43-2.43-9.87 8.98zM.36 1.56C.14 1.87 0 2.27 0 2.77v18.46c0 .5.14.9.36 1.21l.07.06 10.33-10.33v-.24L.43 1.5l-.07.06zM20.72 9.46l-2.9-1.67-2.7 2.71 2.7 2.7 2.92-1.69c.83-.48.83-1.57-.02-2.05zM3.18.24l11.34 6.55-2.43 2.43L3.18.24z"/></svg>
           <div>
-            <span class="badge-sub">Get it on</span>
-            <span class="badge-main">Google Play</span>
+            <span class="badge-main">Download Android App</span>
           </div>
         </a>
+        <button onclick="document.getElementById('testflight-dialog').showModal()" class="badge-appstore" style="border:none;cursor:pointer;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div>
+            <span class="badge-main">Download iOS App</span>
+          </div>
+        </button>
+      </div>
+      <div style="text-align:center;margin-top:8px;margin-bottom:48px;">
         <a href="#features" class="btn-ghost">See How It Works ↓</a>
       </div>
       <div class="phone-wrap">
@@ -700,7 +778,7 @@
           <div class="stat-card">
             <div class="stat-label">Irish Data Protection Commission — September 2021</div>
             <div class="stat-val">€225 Million</div>
-            <div class="stat-desc">WhatsApp was fined €225M over GDPR transparency failures concerning how it explained data processing to users and non-users. Your suspicion was justified.</div>
+            <div class="stat-desc">WhatsApp was fined €225M over GDPR transparency failures concerning how it explained data processing to users and non-users.</div>
           </div>
           <p class="section-body"><strong style="color:var(--text)">The prvc.app difference:</strong> We remove the "who" from the "what." If we don't know who you are, there is nothing for us to share, sell, or lose.</p>
         </div>
@@ -772,7 +850,7 @@
         <div class="feat-card">
           <div class="feat-icon">⚛️</div>
           <div class="feat-title">Designed to Mitigate Harvest-Now-Decrypt-Later</div>
-          <p class="feat-body">Our sharding model is designed to reduce harvest-now-decrypt-later risk by requiring multiple independent conditions to be met simultaneously: shard collection from multiple sources, correct ordering, decryption keys, and delivery timing. An attacker who intercepts shards in transit still needs the recipient's private key, which never leaves their device.</p>
+          <p class="feat-body">Our sharding model is designed to reduce harvest-now-decrypt-later risk by requiring multiple independent conditions to reconstruct a message. An attacker who intercepts shards in transit still needs the recipient's private key, which never leaves their device.</p>
         </div>
       </div>
     </div>
@@ -831,7 +909,7 @@
         </details>
         <details>
           <summary>My current app is encrypted. Isn't that enough?</summary>
-          <p class="faq-answer">Encryption protects your message content — not your identity. Phone-number-based apps can expose durable identity and relationship metadata: who you talk to, when, and for how long. That metadata is the product. In 2021, WhatsApp was fined €225M by the Irish Data Protection Commission over GDPR transparency failures concerning how it explained data processing to users and non-users. prvc.app is identity-free — there is no identity to harvest.</p>
+          <p class="faq-answer">Encryption protects your message content — not your identity. Phone-number-based apps can expose durable identity and relationship metadata: who you talk to, when, and for how long. That metadata is the product. In 2021, WhatsApp was fined €225M by the Irish Data Protection Commission specifically for failing to disclose how it shares this identity data. prvc.app is identity-free — there is no identity to harvest.</p>
         </details>
         <details>
           <summary>How do I connect with others?</summary>
@@ -847,7 +925,7 @@
         </details>
         <details>
           <summary>Why no biometrics (FaceID / TouchID)?</summary>
-          <p class="faq-answer">A PIN exists only in your mind. In many U.S. jurisdictions, memorized PINs may receive stronger legal protection than biometrics under the Fifth Amendment — a memorized PIN is considered testimony, while providing a fingerprint or face scan is generally treated as a physical act a court can compel. prvc.app uses a PIN specifically for this reason. Legal standards vary by jurisdiction; users in other countries should seek advice appropriate to their location. We prioritize your legal and physical safety over convenience.</p>
+          <p class="faq-answer">A PIN exists only in your mind. In many U.S. jurisdictions, memorized PINs may receive stronger legal protection than biometrics — courts have treated compelled PIN disclosure as testimony in a way that compelled biometric unlock has not always been. Legal standards vary by jurisdiction; users in other countries should seek advice appropriate to their location. prvc.app uses a PIN specifically to preserve that potential legal protection. We prioritize your legal and physical safety over convenience.</p>
         </details>
         <details open>
           <summary>Can I block someone?</summary>
@@ -910,10 +988,10 @@
       <h2 class="section-title">We're Here.</h2>
       <div class="support-layout">
         <div>
-          <a href="mailto:support@prvc.app" class="email-block">
+          <a href="/cdn-cgi/l/email-protection#9feceaefeff0edebdfefede9fcb1feefef" class="email-block">
             <div class="email-icon">✉️</div>
             <div>
-              <strong>support@prvc.app</strong>
+              <strong><span class="__cf_email__" data-cfemail="e89b9d9898879a9ca8989a9e8bc6899898">[email&#160;protected]</span></strong>
               <span>48-hour response · Monitored in real time during App Review</span>
             </div>
           </a>
@@ -935,7 +1013,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <span>prvc.app</span>
-          <p>Privacy is the Architecture.</p>
+          <p>"Identity-free is Key"</p>
         </div>
         <div class="footer-links">
           <a href="https://www.linkedin.com/company/combinatorial-security-holdings-inc" target="_blank">LinkedIn</a>
@@ -951,5 +1029,36 @@
     </div>
   </footer>
 
+  <dialog id="testflight-dialog">
+          <form method="post">
+                <input type="email" name="testflight_email" placeholder="Your Apple account email for TestFlight" required autofocus>
+        <div class="dialog-buttons">
+          <button type="submit">Submit</button>
+          <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
+        </div>
+      </form>
+      </dialog>
+
+  
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+_linkedin_partner_id = "8400186";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script><script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8400186&fmt=gif" />
+</noscript>
+
+  <script src="https://api.fouanalytics.com/api/init-9052oea07thpssde0zs3.js" data-cfasync="false" async></script>
+  <noscript><img src="https://api.fouanalytics.com/api/noscript-9052oea07thpssde0zs3.gif"></noscript>
 </body>
 </html>
